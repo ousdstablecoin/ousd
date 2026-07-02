@@ -92,7 +92,4 @@ document.addEventListener('DOMContentLoaded', () => {
             asteroid.draw();
         });
         
-        requestAnimationFrame(animate);
-    }
-    animate();
-});
+        requestAnimationFrame(animate)
