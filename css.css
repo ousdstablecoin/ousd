@@ -41,7 +41,7 @@ body, html {
     pointer-events: none;
 }
 
-/* CONTENEDOR CENTRAL INVARIANTAL */
+/* CONTENEDOR CENTRAL */
 .center-container {
     position: relative;
     z-index: 4;
@@ -80,7 +80,7 @@ body, html {
     text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
 }
 
-/* MENÚ INTERACTIVO DE ENLACES STELLAR */
+/* MENÚ INTERACTIVO */
 .tech-menu {
     display: flex;
     gap: 20px;
@@ -97,44 +97,71 @@ body, html {
     font-size: 0.85rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    background: rgba(4, 4, 12, 0.75);
+    background: rgba(4, 4, 12, 0.8);
     border: 1px solid rgba(0, 229, 255, 0.25);
     border-radius: 4px;
-    overflow: hidden;
+    overflow: hidden; /* Clave para que el destello no se salga del botón */
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
     cursor: pointer;
 }
 
+/* MODIFICADO: Brillo neón general al pasar el cursor */
 .menu-item:hover {
     border-color: #00e5ff;
-    box-shadow: 0 0 25px rgba(0, 229, 255, 0.45);
+    box-shadow: 0 0 30px rgba(0, 229, 255, 0.6), inset 0 0 15px rgba(0, 229, 255, 0.3);
     text-shadow: 0 0 8px #ffffff;
-    transform: scale(1.03);
+    transform: scale(1.02);
 }
 
-/* Detalles HUD en las esquinas de los botones */
-.menu-item::before, .menu-item::after {
+/* NUEVO: El destello de luz láser (Efecto Reflejo) */
+.menu-item::before {
     content: '';
     position: absolute;
+    top: 0;
+    left: -150%; /* Comienza completamente escondido a la izquierda */
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        rgba(0, 229, 255, 0.6) 50%, /* Núcleo del destello cian */
+        rgba(255, 255, 255, 0.2), 
+        transparent
+    );
+    transform: skewX(-25deg); /* Se inclina para dar sensación de velocidad */
+    transition: none;
+}
+
+/* Al pasar el ratón, el destello cruza el botón velozmente de izquierda a derecha */
+.menu-item:hover::before {
+    left: 150%;
+    transition: left 0.6s ease-in-out;
+}
+
+/* Adornos HUD estáticos en las esquinas de los botones */
+.menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    right: 0; 
     width: 6px;
     height: 6px;
     border-color: #00e5ff;
     border-style: solid;
+    border-width: 0 1px 1px 0;
     opacity: 0.5;
     transition: all 0.3s ease;
 }
 
-.menu-item::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
-.menu-item::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
-
-.menu-item:hover::before, .menu-item:hover::after {
+.menu-item:hover::after {
     width: 10px;
     height: 10px;
     opacity: 1;
 }
 
-/* Estrellas Internas */
+/* Estrellas Internas Centelleantes */
 .menu-star {
     position: absolute;
     background-color: #ffffff;
