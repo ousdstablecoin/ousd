@@ -12,7 +12,6 @@ body, html {
     overflow: hidden;
     font-family: 'Orbitron', sans-serif;
     background-color: #020208;
-    /* Forzamos el centrado matemático absoluto en cualquier resolución */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,20 +35,9 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Recorta proporcionalmente el vídeo para rellenar la pantalla */
+    object-fit: cover;
     z-index: 2;
-    opacity: 0.55; /* Opacidad óptima para apreciar el vídeo sin perder contraste de texto */
-    pointer-events: none;
-}
-
-/* RENDERIZADO DE PARTÍCULAS */
-#asteroidCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
+    opacity: 0.55;
     pointer-events: none;
 }
 
@@ -92,7 +80,7 @@ body, html {
     text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
 }
 
-/* MENÚ INTERACTIVO DE ENLACES STELAR */
+/* MENÚ INTERACTIVO DE ENLACES STELLAR */
 .tech-menu {
     display: flex;
     gap: 20px;
@@ -169,7 +157,7 @@ body, html {
 /* REGLAS DE ADAPTABILIDAD RESPONSIVA PARA DISPOSITIVOS MÓVILES */
 @media (max-width: 768px) {
     .brand-title {
-        font-size: 3.8rem; /* Escalado perfecto para pantallas angostas de teléfonos */
+        font-size: 3.8rem;
         letter-spacing: 8px;
     }
 
@@ -179,7 +167,6 @@ body, html {
         margin-bottom: 30px;
     }
 
-    /* Transformación de los botones a pila vertical ordenada */
     .tech-menu {
         flex-direction: column;
         gap: 14px;
