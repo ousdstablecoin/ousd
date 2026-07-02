@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OUSD - Future Gateway</title>
-    <!-- Enlace al archivo CSS externo -->
+    <!-- Vinculación del archivo CSS externo -->
     <link rel="stylesheet" href="css.css">
     <!-- Fuente futurista de Google Fonts -->
     <link href="https://googleapis.com" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Capas de fondo espacial -->
+    <!-- Capa base oscura para evitar parpadeos blancos durante la carga -->
     <div class="space-bg"></div>
     
-    <!-- NUEVO: Fondo de Vídeo en Bucle Completo -->
+    <!-- NUEVO: Fondo de Vídeo Local desde la carpeta images -->
     <video class="video-bg" autoplay loop muted playsinline>
-        <!-- REEMPLAZA EL CONTENIDO DE src POR LA RUTA DE TU ARCHIVO DE VÍDEO (Ej: "video.mp4") -->
         <source src="images/ousd.mp4" type="video/mp4">
         Tu navegador no soporta vídeos de fondo.
     </video>
@@ -24,15 +23,7 @@
     <!-- Canvas para renderizar los asteroides interactivos -->
     <canvas id="asteroidCanvas"></canvas>
 
-    <!-- Imagen del Astronauta Táctico -->
-    <img class="astronaut" src="https://pixabay.com" alt="Astronauta Táctico">
-
-    <!-- Interfaz HUD del sistema -->
-    <div class="hud-overlay">
-        <div class="hud-line"></div>
-    </div>
-
-    <!-- Contenedor central principal -->
+    <!-- Contenedor Central Absoluto -->
     <div class="center-container">
         <h1 class="brand-title">OUSD</h1>
         <div class="hud-text">Transmisión Espacial // Enlaces del Sistema</div>
@@ -46,9 +37,10 @@
         </nav>
     </div>
 
-    <!-- Enlace al archivo JavaScript externo -->
+    <!-- Vinculación de la lógica JavaScript externa -->
     <script src="js.js"></script>
 </body>
 </html>
+
 
 
