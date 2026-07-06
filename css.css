@@ -1,3 +1,10 @@
+/* REGISTRO DE VARIABLE PARA LA ANIMACIÓN DEL ÁNGULO DE LUZ (CSS Puro) */
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 /* RESET GENERAL Y COMPORTAMIENTO FLEXBOX GLOBAL */
 * {
     margin: 0;
@@ -28,7 +35,7 @@ body, html {
     z-index: 1;
 }
 
-/* PROPIEDADES AVANZADAS PARA EL VÍDEO DE FONDO */
+/* PROPIEDADES PARA EL VÍDEO DE FONDO */
 .video-bg {
     position: absolute;
     top: 0;
@@ -51,7 +58,7 @@ body, html {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     padding: 20px;
 }
 
@@ -89,79 +96,95 @@ body, html {
     width: 100%;
 }
 
+/* CONTENEDOR CONTORNO (BOTÓN BASE) */
 .menu-item {
     position: relative;
-    padding: 12px 30px;
-    color: #ffffff;
+    padding: 1px; /* Espesor exacto del borde de luz circulante */
     text-decoration: none;
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    background: rgba(4, 4, 12, 0.8);
-    border: 1px solid rgba(0, 229, 255, 0.25);
-    border-radius: 4px;
-    overflow: hidden; 
+    border-radius: 6px;
+    overflow: hidden;
+    display: inline-block;
     transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
     cursor: pointer;
 }
 
 .menu-item:hover {
-    border-color: #00e5ff;
-    box-shadow: 0 0 30px rgba(0, 229, 255, 0.6), inset 0 0 15px rgba(0, 229, 255, 0.3);
-    text-shadow: 0 0 8px #ffffff;
-    transform: scale(1.02);
+    box-shadow: 0 0 35px rgba(0, 229, 255, 0.5);
+    transform: scale(1.03);
 }
 
-/* EL DESTELLO DE LUZ LÁSER VECTORIAL */
+/* LUZ NEÓN QUE CIRCULA POR EL BORDE (Debajo del contenido texto) */
 .menu-item::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -150%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.1), 
-        rgba(0, 229, 255, 0.5) 50%, 
-        rgba(255, 255, 255, 0.1), 
-        transparent
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 350%;
+    /* Degradado cónico que genera la línea de luz láser circular */
+    background: conic-gradient(
+        from var(--angle),
+        transparent 70%, 
+        #00e5ff, /* Destello cian */
+        #ffffff, /* Núcleo blanco incandescente */
+        #bd00ff, /* Estela morada */
+        transparent 100%
     );
-    transform: skewX(-25deg);
-    z-index: 2; /* Por encima del fondo estelar */
+    animation: spinEdgeLight 4s infinite linear;
+    z-index: 1;
 }
 
-.menu-item:hover::before {
-    left: 150%;
-    transition: left 0.6s ease-in-out;
+/* CONTENIDO INTERIOR DEL BOTÓN (Máscara oscura, texto y estrellas) */
+.menu-content {
+    display: block;
+    position: relative;
+    padding: 12px 30px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: rgba(4, 4, 12, 0.93); /* Fondo opaco que oculta el centro del degradado */
+    border-radius: 5px;
+    z-index: 2;
+    overflow: hidden;
+    transition: background 0.3s ease;
 }
 
-/* NUEVO: Manto de Estrellas Titilantes Generado con Gradientes Matemáticos en CSS */
-.menu-item::after {
+.menu-item:hover .menu-content {
+    background: rgba(8, 8, 24, 0.85);
+    text-shadow: 0 0 8px #ffffff;
+}
+
+/* MANTO DE ESTRELLAS INTERNAS (Dentro del botón) */
+.menu-content::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    opacity: 0.4;
-    /* Dibujamos múltiples puntos blancos y cian en un patrón repetitivo */
+    z-index: -1;
+    opacity: 0.35;
     background-image: 
         radial-gradient(circle, #fff 1px, transparent 1px),
         radial-gradient(circle, #00e5ff 1px, transparent 1px),
         radial-gradient(circle, #fff 1.5px, transparent 1.5px);
     background-size: 20px 20px, 28px 28px, 35px 35px;
-    background-position: 0 0, 8px 12px, 15px 5px;
+    background-position: 0 0, 7px 11px, 14px 4px;
     animation: cssStarTwinkle 3s infinite linear;
 }
 
 /* ANIMACIONES KEYFRAMES */
+@keyframes spinEdgeLight {
+    0% { --angle: 0deg; }
+    100% { --angle: 360deg; }
+}
+
 @keyframes cssStarTwinkle {
     0%, 100% { opacity: 0.2; filter: brightness(0.8); }
-    50% { opacity: 0.7; filter: brightness(1.4) drop-shadow(0 0 2px #00e5ff); }
+    50% { opacity: 0.7; filter: brightness(1.3) drop-shadow(0 0 2px #00e5ff); }
 }
 
 @keyframes titlePulse {
@@ -169,7 +192,7 @@ body, html {
     50% { filter: drop-shadow(0 0 45px rgba(189, 0, 255, 0.7)); }
 }
 
-/* REGLAS DE ADAPTABILIDAD RESPONSIVA PARA DISPOSITIVOS MÓVILES */
+/* REGLAS DE ADAPTABILIDAD RESPONSIVA PARA SMARTPHONES */
 @media (max-width: 768px) {
     .brand-title {
         font-size: 3.8rem;
@@ -184,16 +207,21 @@ body, html {
 
     .tech-menu {
         flex-direction: column;
-        gap: 14px;
+        gap: 16px;
         width: 85%;
     }
 
     .menu-item {
+        width: 100%;
+    }
+    
+    .menu-content {
         width: 100%;
         text-align: center;
         padding: 12px 20px;
         font-size: 0.8rem;
     }
 }
+
 
 
