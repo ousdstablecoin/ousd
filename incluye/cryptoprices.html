@@ -1,18 +1,23 @@
-<!-- BARRA DE PRECIOS CRIPTOGRÁFICOS SUPERIOR -->
-    <header class="crypto-ticker">
-        <div class="ticker-wrap">
-            <div class="ticker-move">
-                <span class="ticker-item"><span class="ticker-coin">OUSD:</span> $1.00 <span class="ticker-up">▲ 0.00%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">BTC:</span> $91,420.50 <span class="ticker-up">▲ 1.45%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">ETH:</span> $3,180.25 <span class="ticker-down">▼ 0.82%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">SOL:</span> $194.80 <span class="ticker-up">▲ 4.12%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">BNB:</span> $592.10 <span class="ticker-up">▲ 0.35%</span></span>
-                <!-- Se duplica el contenido para generar un bucle infinito continuo perfecto -->
-                <span class="ticker-item"><span class="ticker-coin">OUSD:</span> $1.00 <span class="ticker-up">▲ 0.00%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">BTC:</span> $91,420.50 <span class="ticker-up">▲ 1.45%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">ETH:</span> $3,180.25 <span class="ticker-down">▼ 0.82%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">SOL:</span> $194.80 <span class="ticker-up">▲ 4.12%</span></span>
-                <span class="ticker-item"><span class="ticker-coin">BNB:</span> $592.10 <span class="ticker-up">▲ 0.35%</span></span>
-            </div>
+<header class="crypto-ticker">
+    <div class="ticker-wrap">
+        <!-- El feed en bucle continuo móvil (Ahora sin OUSD para no duplicar datos) -->
+        <div class="ticker-move">
+            <span class="ticker-item"><span class="ticker-coin">BTC:</span> $91,420.50 <span class="ticker-up">▲ 1.45%</span></span>
+            <span class="ticker-item"><span class="ticker-coin">ETH:</span> $3,180.25 <span class="ticker-down">▼ 0.82%</span></span>
+            <span class="ticker-item"><span class="ticker-coin">SOL:</span> $194.80 <span class="ticker-up">▲ 4.12%</span></span>
+            <span class="ticker-item"><span class="ticker-coin">BNB:</span> $592.10 <span class="ticker-up">▲ 0.35%</span></span>
+            
+            <!-- Duplicado simétrico para mantener el bucle infinito fluido -->
+            <span class="ticker-item"><span class="ticker-coin">BTC:</span> $91,420.50 <span class="ticker-up">▲ 1.45%</span></span>
+            <span class="ticker-item"><span class="ticker-coin">ETH:</span> $3,180.25 <span class="ticker-down">▼ 0.82%</span></span>
+            <span class="ticker-item"><span class="ticker-coin">SOL:</span> $194.80 <span class="ticker-up">▲ 4.12%</span></span>
+            <span class="ticker-item"><span class="ticker-coin">BNB:</span> $592.10 <span class="ticker-up">▲ 0.35%</span></span>
         </div>
-    </header>
+    </div>
+
+    <!-- INDICADOR FIJO EN LA ESQUINA SUPERIOR DERECHA -->
+    <div class="ticker-fixed-price">
+        <span class="fixed-coin">1 OUSD</span> = $1.00 <span class="fixed-stable">STABLE</span>
+    </div>
+</header>
+
