@@ -1,7 +1,7 @@
 /* REGISTRO DE LA ANIMACIÓN GENERAL DEL TICKER CRIPTOGRÁFICO */
 html::after {
     /* Lista de monedas en un bucle repetitivo continuo para simular flujo infinito */
-    content: "BTC: $102,450.00 ▲ 1.45% \a0\a0\a0\a0\a0\a0\a0 ETH: $3,480.25 ▼ 0.82% \a0\a0\a0\a0\a0\a0\a0 SOL: $214.80 ▲ 4.12% \a0\a0\a0\a0\a0\a0\a0 BNB: $612.10 ▲ 0.35% \a0\a0\a0\a0\a0\a0\a0 BTC: $102,450.00 ▲ 1.45% \a0\a0\a0\a0\a0\a0\a0 ETH: $3,480.25 ▼ 0.82% \a0\a0\a0\a0\a0\a0\a0 SOL: $214.80 ▲ 4.12% \a0\a0\a0\a0\a0\a0\a0 BNB: $612.10 ▲ 0.35%";
+    content: "OUSD: $1  ▲ 2.45% \a0\a0\a0\a0\a0\a0\a0 BTC: $102,450.00 ▲ 1.45% \a0\a0\a0\a0\a0\a0\a0 ETH: $3,480.25 ▼ 0.82% \a0\a0\a0\a0\a0\a0\a0 SOL: $214.80 ▲ 4.12% \a0\a0\a0\a0\a0\a0\a0 BNB: $612.10 ▲ 0.35% \a0\a0\a0\a0\a0\a0\a0 BTC: $102,450.00 ▲ 1.45% \a0\a0\a0\a0\a0\a0\a0 ETH: $3,480.25 ▼ 0.82% \a0\a0\a0\a0\a0\a0\a0 SOL: $214.80 ▲ 4.12% \a0\a0\a0\a0\a0\a0\a0 BNB: $612.10 ▲ 0.35%";
     white-space: pre; /* Permite interpretar los espacios en blanco de separación (\a0) */
     position: absolute;
     top: 0;
