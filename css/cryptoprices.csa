@@ -1,0 +1,39 @@
+/* REGISTRO DE LA ANIMACIÓN GENERAL DEL TICKER CRIPTOGRÁFICO */
+html::after {
+    /* Lista de monedas en un bucle repetitivo continuo para simular flujo infinito */
+    content: "BTC: $102,450.00 ▲ 1.45% \a0\a0\a0\a0\a0\a0\a0 ETH: $3,480.25 ▼ 0.82% \a0\a0\a0\a0\a0\a0\a0 SOL: $214.80 ▲ 4.12% \a0\a0\a0\a0\a0\a0\a0 BNB: $612.10 ▲ 0.35% \a0\a0\a0\a0\a0\a0\a0 BTC: $102,450.00 ▲ 1.45% \a0\a0\a0\a0\a0\a0\a0 ETH: $3,480.25 ▼ 0.82% \a0\a0\a0\a0\a0\a0\a0 SOL: $214.80 ▲ 4.12% \a0\a0\a0\a0\a0\a0\a0 BNB: $612.10 ▲ 0.35%";
+    white-space: pre; /* Permite interpretar los espacios en blanco de separación (\a0) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* El doble de ancho para permitir el desplazamiento fluido */
+    height: 40px;
+    background: rgba(4, 4, 12, 0.75);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.25);
+    z-index: 90; /* Se posiciona justo debajo del precio fijo de OUSD */
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    /* Ejecuta el movimiento continuo de derecha a izquierda */
+    animation: cssTickerMove 25s infinite linear;
+}
+
+/* ANIMACIÓN INTERNA POR HARDWARE PARA EL MOVIMIENTO DEL CONTENIDO */
+@keyframes cssTickerMove {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); } /* Desplaza la mitad exacta de la cadena */
+}
+
+/* AJUSTE DE ALTURA RESPONSIVA PARA DISPOSITIVOS MÓVILES */
+@media (max-width: 768px) {
+    html::after {
+        height: 35px;
+        font-size: 0.7rem;
+        animation-duration: 18s; /* Un poco más rápido en pantallas angostas */
+    }
+}
