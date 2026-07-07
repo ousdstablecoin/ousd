@@ -1,6 +1,6 @@
 <!-- LÓGICA PARA INCLUIR EL ARCHIVO CRIPTOPRICES.HTML -->
     <script>
-        fetch('incluye/criptoprices.html')
+        fetch('incluye/cryptoprices.html')
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error al cargar la barra de precios");
