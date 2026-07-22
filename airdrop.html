@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Airdrop apBTC</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0b0c10; color: #c5c6c7; text-align: center; padding-top: 80px; }
+        .box { background: #1f2833; border: 2px solid #45f3ff; padding: 40px; border-radius: 12px; display: inline-block; width: 100%; max-width: 420px; box-shadow: 0 4px 20px rgba(69,243,255,0.2); }
+        .accent { color: #45f3ff; font-weight: bold; }
+        button { background: #45f3ff; color: #0b0c10; border: none; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 25px; width: 100%; transition: 0.3s; }
+        button:hover { background: #1fbcda; box-shadow: 0 0 10px rgba(69,243,255,0.5); }
+        button:disabled { background: #2f3e46; color: #666; cursor: not-allowed; box-shadow: none; }
+        #status-log { margin-top: 20px; font-size: 14px; color: #66fcf1; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Airdrop Semanal <span class="accent">apBTC</span></h2>
+        <p>Token: <small class="accent">0x6675...552d</small></p>
+        <p>Reclama <span class="accent">0.3 apBTC</span> cada 7 días en Sepolia.</p>
+        
+        <button id="btnWallet">Conectar MetaMask</button>
+        <div id="status-log"></div>
+    </div>
+
+    <script type="module">
+        import { ethers } from "https://cloudflare.com";
+
+        // REEMPLAZA ESTO: Pon la dirección del contrato de AIRDROP cuando lo despliegues
+        const DIRECCION_CONTRATO_AIRDROP = "0xDIRECCION_DE_TU_CONTRATO_AIRDROP_AQUI";
+        
+        const abiAirdrop = [
+            "function reclamarAirdrop(bytes32[] calldata _pruebaMerkle) external payable",
+            "function proximoReclamoDisponible(address) view returns (uint256)"
+        ];
+
+        // Definición del Fee que se le cobrará al usuario (Ejemplo: 0.005 Sepolia ETH)
+        const FEE_PROPIETARIO = ethers.parseEther("0.005");
+
+        // Prueba Merkle correspondiente a la wallet del usuario (Generada previamente en tu backend)
+        const pruebaMerkleUsuario = ["0x7fcc5c18e11b439c09c13e548074d6c5c00e1234567890abcdef1234567890ab"];
+
+        let proveedor, firmante, cuentaWallet, contratoAirdrop;
+        const btnWallet = document.getElementById("btnWallet");
+        const divLog = document.getElementById("status-log");
+
+        async function verificarYConectar() {
+            if (!window.ethereum) return divLog.innerText = "Instala la extensión MetaMask.";
+
+            proveedor = new ethers.BrowserProvider(window.ethereum);
+            const red = await proveedor.getNetwork();
+
+            // Validar que el usuario esté obligatoriamente en la red Sepolia (Chain ID: 11155111)
+            if (red.chainId !== 11155111n) {
+                divLog.innerText = "❌ Red incorrecta. Cambia tu MetaMask a Sepolia Testnet.";
+                return;
+            }
+
+            if (!cuentaWallet) {
+                await proveedor.send("eth_requestAccounts", []);
+                firmante = await proveedor.getSigner();
+                cuentaWallet = await firmante.getAddress();
+                
+                contratoAirdrop = new ethers.Contract(DIRECCION_CONTRATO_AIRDROP, abiAirdrop, firmante);
+                btnWallet.innerText = "Reclamar 0.3 apBTC";
+                divLog.innerText = "Billetera vinculada con éxito.";
+                
+                await checarRestriccionTiempo();
+            } else {
+                ejecutarReclamo();
+            }
+        }
+
+        async function ejecutarReclamo() {
+            try {
+                divLog.innerText = "Solicitando confirmación y procesando comisión...";
+                
+                // Envía la transacción adjuntando el valor del Fee nativo exigido
+                const tx = await contratoAirdrop.reclamarAirdrop(pruebaMerkleUsuario, { value: FEE_PROPIETARIO });
+                
+                divLog.innerText = "Procesando bloque en Sepolia Etherscan...";
+                await tx.wait();
+                
+                divLog.innerText = "🎉 ¡Reclamo exitoso! 0.3 apBTC enviados. El fee se transfirió al dueño.";
+                btnWallet.disabled = true;
+            } catch (error) {
+                console.error(error);
+                divLog.innerText = "❌ Error: Reclamo denegado o fondos insuficientes para la comisión.";
+            }
+        }
+
+        async function checarRestriccionTiempo() {
+            const tiempoDesbloqueo = await contratoAirdrop.proximoReclamoDisponible(cuentaWallet);
+            const tiempoUnixActual = Math.floor(Date.now() / 1000);
+
+            if (Number(tiempoDesbloqueo) > tiempoUnixActual) {
+                const segundosRestantes = Number(tiempoDesbloqueo) - tiempoUnixActual;
+                const diasRestantes = Math.ceil(segundosRestantes / 86400);
+                btnWallet.disabled = true;
+                divLog.innerText = `⏳ Bloqueado por periodo semanal. Regresa en ${diasRestantes} días.`;
+            }
+        }
+
+        btnWallet.addEventListener("click", verificarYConectar);
+    </script>
+</body>
+</html>
