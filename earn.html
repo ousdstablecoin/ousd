@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Rendimiento</title>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --dark: #0f172a;
+            --gray-bg: #f8fafc;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            max-width: 480px;
+            width: 100%;
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #ecfdf5;
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .rate {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .rate span {
+            color: var(--primary);
+        }
+
+        .period {
+            font-size: 16px;
+            color: var(--text-main);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 16px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px 14px 36px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .results {
+            background: var(--gray-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .result-row:not(:last-child) {
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .result-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .result-value.profit {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- Distintivo Superior -->
+        <div class="badge">
+            <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+            Rendimiento Garantizado
+        </div>
+
+        <!-- Títulos -->
+        <h1>Multiplica tu capital sin esfuerzo</h1>
+        <p class="subtitle">Observa cómo crece tu dinero en periodos cortos de tiempo.</p>
+
+        <!-- Bloque de Tasa Destacada -->
+        <div class="highlight-box">
+            <div class="rate">+4.0%<span> de interés</span></div>
+            <div class="period">
+                <i data-lucide="calendar" style="width: 18px; height: 18px; color: var(--primary);"></i>
+                Cada 60 días acumulados
+            </div>
+        </div>
+
+        <!-- Simulador -->
+        <div class="input-group">
+            <label for="amount">Monto a simular</label>
+            <div class="input-wrapper">
+                <span class="input-prefix">$</span>
+                <input type="number" id="amount" value="1000" min="10" oninput="calculate()">
+            </div>
+        </div>
+
+        <!-- Desglose de Resultados -->
+        <div class="results">
+            <div class="result-row">
+                <span class="result-label">Tus ganancias (60 días)</span>
+                <span class="result-value profit" id="profit">$40.00</span>
+            </div>
+            <div class="result-row">
+                <span class="result-label">Total al finalizar el periodo</span>
+                <span class="result-value" id="total">$1,040.00</span>
+            </div>
+        </div>
+
+        <!-- Botón de Acción -->
+        <button class="btn">Comenzar a ganar ahora</button>
+        <p class="footer-note">Cálculo basado en una tasa de interés fija del 4% cada 60 días.</p>
+    </div>
+
+    <!-- Scripts para Iconos y Lógica -->
+    <script>
+        // Inicializa los iconos de Lucide
+        lucide.createIcons();
+
+        // Lógica de cálculo en tiempo real
+        function calculate() {
+            const amountInput = document.getElementById('amount');
+            const profitOutput = document.getElementById('profit');
+            const totalOutput = document.getElementById('total');
+            
+            let amount = parseFloat(amountInput.value);
+            
+            if (isNaN(amount) || amount < 0) {
+                amount = 0;
+            }
+
+            const interestRate = 0.04; // 4%
+            const profit = amount * interestRate;
+            const total = amount + profit;
+
+            // Formatear números a moneda estándar
+            profitOutput.innerText = '$' + profit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            totalOutput.innerText = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+    </script>
+</body>
+</html>
