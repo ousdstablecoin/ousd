@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OUSD - Future Gateway</title>
-    <!-- Vinculación del archivo CSS externo -->
-    <link rel="stylesheet" href="css/css.css">
-    <!-- NUEVO: Archivo de estilos específico para la barra deslizante de precios Cripto -->
+    <title>OUSD - Órbita</title>
+    <!-- Vinculación modular de componentes desde el Head -->
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="css/priceousd.css">
     <link rel="stylesheet" href="css/cryptoprices.css">
-    <!-- Fuente futurista de Google Fonts -->
     <link href="https://googleapis.com" rel="stylesheet">
 </head>
 <body>
-    <!-- Capa base oscura para evitar parpadeos blancos durante la carga -->
+
     <div class="space-bg"></div>
-    
-    <!-- Fondo de Vídeo Local desde la carpeta images -->
     <video class="video-bg" autoplay loop muted playsinline>
-        <source src="imagen/ousd.mp4" type="video/mp4">
-        Tu navegador no soporta vídeos de fondo.
+        <source src="images/ousd.mp4" type="video/mp4">
     </video>
 
-    <!-- Contenedor Central Absoluto -->
+    <!-- CONTENIDO ESPECÍFICO EN BODY -->
     <div class="center-container">
-        <h1 class="brand-title">OUSD</h1>
-            <br />
-        <div class="hud-text"> 1 OUSD = 1$</div>
-        <div class="hud-text">Proyect Stablecoin // Generation Global</div>
+        <h1 class="brand-title">HOME</h1>
+        <div class="hud-text">Trayectoria de Estabilización // Control de Suministro</div>
+
+        <!-- Bloque de contenido futurista -->
+        <div class="module-content-box">
+            <div class="hud-stat">Suministro Total: <span class="cyan-glow">100M OUSD</span></div>
+            <div class="hud-stat">Reserva en Staking: <span class="cyan-glow">42.5%</span></div>
+            <p class="hud-description">El protocolo de órbita equilibra la emisión de tokens mediante un algoritmo cuántico descentralizado que asegura la paridad constante 1:1.</p>
+        </div>
         
-        <!-- Menú de Enlaces Tecnológicos -->
- <nav class="tech-menu">
-    <a href="ecosystem.html" class="menu-item"><span class="menu-content">ECOSISTEMA</span></a>
-    <a href="orbit.html" class="menu-item"><span class="menu-content">ÓRBITA</span></a>
-    <a href="network.html" class="menu-item"><span class="menu-content">RED CUÁNTICA</span></a>
-    <a href="terminal.html" class="menu-item"><span class="menu-content">TERMINAL</span></a>
-</nav>
+        <!-- Menú de navegación interconectado -->
+        <nav class="tech-menu">
+            <a href="orbit.html" class="menu-item"><span class="menu-content">ORBIT</span></a>
+            <a href="ecosystem.html" class="menu-item"><span class="menu-content">ECOSISTEMA</span></a>
+            <a href="network.html" class="menu-item"><span class="menu-content">RED CUÁNTICA</span></a>
+            <a href="terminal.html" class="menu-item"><span class="menu-content">TERMINAL</span></a>
+        </nav>
     </div>
+
 </body>
 </html>
 
